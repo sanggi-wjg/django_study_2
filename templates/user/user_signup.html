@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ view_title }}</title>
+
+    {% load static %}
+    <script src={% static 'comm/jquery_3.4.1.js' %}></script>
+
+    <script>
+        function doFormCheck()
+        {
+
+        }
+    </script>
+</head>
+<body>
+
+<form action="{% url 'SignUp' %}" method="POST">
+    {{ user_form.as_p }}
+    <button type="submit" class="btn btn-primary">회원가입</button>
+    {{ error_messages }}
+</form>
+
+</body>
+</html>

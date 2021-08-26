@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ view_title }}</title>
+
+    {% load static %}
+    <link rel="icon" href="{% static 'comm/favicon.ico' %}">
+    <link href="{% static 'comm/bootstrap-5.1.0/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <script src={% static 'comm/jquery_3.4.1.js' %}></script>
+    <script src={% static 'comm/jquery.form.min.js' %}></script>
+    <script src={% static 'comm/bootstrap-5.1.0/js/bootstrap.bundle.min.js' %}></script>
+
+    {# https://github.com/danielm/uploader #}
+    <link href="{% static 'module/jquery-uploader/jquery.dm-uploader.min.css' %}" rel="stylesheet">
+    <script src={% static 'module/jquery-uploader/jquery.dm-uploader.min.js' %}></script>
+    <script src={% static 'module/uploader.js' %}></script>
+
+    <script>
+        $(document).ready(function () {
+            make_upload_area("POST", "{% url 'FileUpload' %}", "sample");
+        });
+
+    </script>
+</head>
+<body>
+<main class="container pt-2">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            {% csrf_token %}
+            <div class="dm-uploader p-5 text-center" id="upload-area">
+                <h3 class="mb-5 mt-5 text-muted">Drag &amp; drop Files here</h3>
+                <div class="btn btn-primary btn-block mb-5">
+                    <span>Open the file Browser</span>
+                    <input type="file" title="Click to add Files" multiple="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card h-100">
+                <div class="card-header">File List</div>
+                <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+                    <li class="text-muted text-center empty">No files uploaded.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script type="text/html" id="files-template">
+    <li class="media">
+        <div class="media-body mb-1">
+            <p class="mb-2">
+                <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+            </p>
+            <div class="progress mb-2">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                     role="progressbar"
+                     style="width: 0%"
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+            <hr class="mt-1 mb-1"/>
+        </div>
+    </li>
+</script>
+
+<!-- Debug item template -->
+<script type="text/html" id="debug-template">
+    <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
+</script>
+
+<div id="upload-result">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ view_title }}</title>
+
+    {% load static %}
+    <script src={% static 'comm/jquery_3.4.1.js' %}></script>
+
+    <script>
+        function doFormCheck()
+        {
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+        }
+    </script>
+</head>
+<body>
+
+<form action="{% url 'Login' %}" method="POST" onsubmit="return doFormCheck();">
+    {% csrf_token %}
+    <input type="hidden" name="redirect_to" value="{{ request.GET.redirect_to }}">
+    <div class="form">
+        <input class="ipt" type="text" id="username" name="username" placeholder="아이디"
+               autocomplete="username" required="required">
+        <label for="username"></label>
+    </div>
+    <div class="box">
+        <i class="icon i-pwd"></i>
+        <input class="ipt" type="password" id="password" name="password" placeholder="패스워드"
+               required="required">
+        <label for="password"></label>
+    </div>
+    <div class="linkbox">
+        {% if error_msg %}
+            <span class="txt" style="color: red;"><b>{{ error_msg }}</b></span>
+        {% endif %}
+    </div>
+    <input type="submit" class="btn" value="LOGIN">
+    <input type="button" class="btn" value="가입" onclick="document.location = '{% url 'SignUp' %}">
+</form>
+
+</body>
+</html>

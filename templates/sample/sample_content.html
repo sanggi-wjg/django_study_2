@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ view_title }}</title>
+    {% load static %}
+    <script src={% static 'comm/jquery_3.4.1.js' %}></script>
+    <script src={% static 'comm/jquery.form.min.js' %}></script>
+
+    <script>
+
+        function clear_upload_result()
+        {
+            $("upload-result").val('');
+        }
+
+        function write_upload_result(message)
+        {
+            $("upload-result").val(message)
+        }
+
+        function upload_file()
+        {
+            {#let file = $("#id_uploadFile", document.uploadFileForm).val();#}
+            let uploadFileForm = $("#uploadFileForm");
+
+            uploadFileForm.ajaxForm({
+                url: "{% url 'FileUpload' %}",
+                enctype: 'multipart/form-data',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    write_upload_result(result);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    write_upload_result(textStatus);
+                }
+            });
+            uploadFileForm.submit();
+        }
+    </script>
+</head>
+<body>
+
+<form action="{% url 'FileUpload' %}" method="post" id="uploadFileForm" name="uploadFileForm"
+      enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ upload_form.as_p }}
+    <input type="button" class="cm-btn" value="업로드" onclick="upload_file(); return false;">
+</form>
+
+<div id="upload-result">
+</div>
+
+</body>
+</html>
