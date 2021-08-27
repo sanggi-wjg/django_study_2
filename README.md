@@ -9,6 +9,15 @@ Django 3.2.6
 ### 추가 패키지
 ```
 pip install django==3.2.6
+
+pip install openpyxl
+https://openpyxl.readthedocs.io/en/stable/index.html
+
+pip install XlsxWriter
+https://xlsxwriter.readthedocs.io/
+
+jquery uploader
+https://github.com/danielm/uploader
 ```
 
 유저 

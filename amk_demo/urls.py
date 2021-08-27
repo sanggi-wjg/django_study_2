@@ -32,4 +32,6 @@ urlpatterns = [
 
     path('sample', sample.SampleController.as_view(), name = 'Sample'),
     path('sample-multi', sample.SampleMultiController.as_view(), name = 'SampleMulti'),
+
+    path('sample-insert', sample.SampleInsertExcelController.as_view(), name = 'SampleInsertExcel'),
 ]
