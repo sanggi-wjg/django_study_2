@@ -100,25 +100,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
 
 # Media
 MEDIA_URL = '/media/'
@@ -130,3 +120,37 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #######################
 LOGIN_URL = '/login'
+INDEX_URL = '/'
+
+LOG_BASE_ROOT = os.path.join(BASE_DIR, "log")
+LOG_DATABASE_FILE = os.path.join(LOG_BASE_ROOT, "database.log")
+LOG_FORMAT_SIMPLE = '[%(asctime)s] %(message)s'
+LOG_FORMAT_BASIC = '[%(levelname)s] [%(asctime)s] (%(name)s) %(message)s'
+LOG_FORMAT_THREAD = '[%(levelname)s] [%(asctime)s] (%(name)s) (Id: %(thread)d, Name: %(threadName)s) %(message)s '
+
+LOGGING = {
+    'version'                 : 1,
+    'disable_existing_loggers': False,  # Do not set True.
+    'formatters'              : {
+        'basic': {
+            'format': LOG_FORMAT_SIMPLE
+        }
+    },
+    'handlers'                : {
+        'file': {
+            'level'      : 'DEBUG',
+            'class'      : 'logging.handlers.RotatingFileHandler',
+            'backupCount': 50,
+            'maxBytes'   : 1024 * 1024 * 20,  # about 20 Mb
+            'formatter'  : 'basic',
+            'filename'   : LOG_DATABASE_FILE
+        },
+    },
+    'loggers'                 : {
+        'django.db.backends': {
+            'handlers' : ['file'],
+            'level'    : 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
