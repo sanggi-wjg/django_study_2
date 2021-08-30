@@ -1,13 +1,22 @@
 from .base import *
 
+DEBUG = True
+
 ALLOWED_HOSTS = [
     'localhost'
 ]
 
-DEBUG = True
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+INSTALLED_APPS += [
+    'debug_toolbar'
+]
+
+MIDDLEWARE += [
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
+]
 
 DATABASES = {
     'default': {
