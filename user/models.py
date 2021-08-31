@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from modules.exceptions.model_exceptions import UserAlreadyExist
+from user.exceptions import UserAlreadyExist
 
 
 def create_normal_user(username: str, email: str, password: str) -> models.Model:

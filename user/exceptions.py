@@ -1,8 +1,8 @@
-class DatabaseError(Exception):
+class UserModelError(Exception):
     pass
 
 
-class UserAlreadyExist(DatabaseError):
+class UserAlreadyExist(UserModelError):
 
     def __init__(self, username: str, message = ' is already exist'):
         self.username = username
@@ -13,7 +13,7 @@ class UserAlreadyExist(DatabaseError):
         return self.username + self.message
 
 
-class UserEmailAlreadyExist(DatabaseError):
+class UserEmailAlreadyExist(UserModelError):
 
     def __init__(self, email: str, message = ' is already exist'):
         self.email = email

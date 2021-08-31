@@ -9,8 +9,8 @@ from openpyxl import load_workbook
 
 from amk_demo.settings.base import MEDIA_ROOT
 from file.helpers import upload_file_to_server
-from modules.mixins.auth_mixins import LoginRequired
 from sample.forms import UploadFileForm
+from user.mixins import LoginRequired
 
 
 class SampleController(LoginRequired, View):
