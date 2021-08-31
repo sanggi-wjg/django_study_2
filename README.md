@@ -22,7 +22,7 @@ pip install django-debug-toolbar
 pip install djangorestframework
 (https://www.django-rest-framework.org/)
 
-pip install markdown django-filter colorful_print==0.0.4
+pip install markdown django-filter pygments colorful_print==0.0.4
 ```
 #### jQuery 패키지
 ```

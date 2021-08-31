@@ -56,10 +56,10 @@ class SampleInsertExcelController(LoginRequired, View):
 class SampleUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = SampleUserSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class SampleGroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = SampleGroupSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
