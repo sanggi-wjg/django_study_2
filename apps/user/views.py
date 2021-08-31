@@ -1,7 +1,7 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
-from django.views.generic.base import View, TemplateView
+from django.views.generic.base import View
 
 from amk_demo.settings.base import LOGIN_URL, INDEX_URL
 from apps.modules.decorators.decorators import catch_error
@@ -11,7 +11,7 @@ class UserLoginController(View):
     view_title = '로그인'
     template_name = 'user/user_login.html'
 
-    @catch_error
+    @catch_error(logger_name = 'login')
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect(INDEX_URL)
@@ -22,7 +22,7 @@ class UserLoginController(View):
             'auth_form' : auth_form
         })
 
-    @catch_error
+    @catch_error(logger_name = 'login')
     def post(self, request, *args, **kwargs):
         username = request.POST['username']
         password = request.POST['password']
@@ -48,7 +48,7 @@ class UserLoginController(View):
 
 class UserLogoutController(View):
 
-    @catch_error
+    @catch_error(logger_name = 'logout')
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect(LOGIN_URL)
@@ -58,7 +58,7 @@ class UserSignUpController(View):
     view_title = '가입'
     template_name = 'user/user_signup.html'
 
-    @catch_error
+    @catch_error(logger_name = 'signup')
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect(INDEX_URL)
@@ -69,7 +69,7 @@ class UserSignUpController(View):
             'user_form' : user_form,
         })
 
-    @catch_error
+    @catch_error(logger_name = 'signup')
     def post(self, request, *args, **kwargs):
         user_form = UserCreationForm(request.POST)
 

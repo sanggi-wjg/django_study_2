@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # 'builtins'          : ['apps.module.templatetags.help_tags']
         },
     },
 ]
@@ -118,39 +119,50 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#######################
+#
 LOGIN_URL = '/login'
 INDEX_URL = '/'
 
-LOG_BASE_ROOT = os.path.join(BASE_DIR, "log")
+# Secure
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+
+# Log
+LOG_BASE_ROOT = os.path.join(BASE_DIR, "logs")
 LOG_DATABASE_FILE = os.path.join(LOG_BASE_ROOT, "database.log")
 LOG_FORMAT_SIMPLE = '[%(asctime)s] %(message)s'
 LOG_FORMAT_BASIC = '[%(levelname)s] [%(asctime)s] (%(name)s) %(message)s'
 LOG_FORMAT_THREAD = '[%(levelname)s] [%(asctime)s] (%(name)s) (Id: %(thread)d, Name: %(threadName)s) %(message)s '
 
-LOGGING = {
-    'version'                 : 1,
-    'disable_existing_loggers': False,  # Do not set True.
-    'formatters'              : {
-        'basic': {
-            'format': LOG_FORMAT_SIMPLE
-        }
-    },
-    'handlers'                : {
-        'file': {
-            'level'      : 'DEBUG',
-            'class'      : 'logging.handlers.RotatingFileHandler',
-            'backupCount': 50,
-            'maxBytes'   : 1024 * 1024 * 20,  # about 20 Mb
-            'formatter'  : 'basic',
-            'filename'   : LOG_DATABASE_FILE
-        },
-    },
-    'loggers'                 : {
-        'django.db.backends': {
-            'handlers' : ['file'],
-            'level'    : 'DEBUG',
-            'propagate': False,
-        },
-    },
-}
+# https://docs.djangoproject.com/en/3.2/topics/logging/
+# LOGGING = {
+#     'version'                 : 1,
+#     'disable_existing_loggers': False,  # Do not set True.
+#     'formatters'              : {
+#         'basic': {
+#             'format': LOG_FORMAT_SIMPLE
+#         }
+#     },
+#     'handlers'                : {
+#         'file'   : {
+#             'level'      : 'DEBUG',
+#             'class'      : 'logging.handlers.RotatingFileHandler',
+#             'backupCount': 50,
+#             'maxBytes'   : 1024 * 1024 * 20,  # about 20 Mb
+#             'formatter'  : 'basic',
+#             'filename'   : LOG_DATABASE_FILE
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler'
+#         }
+#     },
+#     'loggers'                 : {
+#         'django.db.backends': {
+#             'handlers' : ['file'],
+#             'level'    : 'DEBUG',
+#             'propagate': False,
+#         },
+#     },
+# }

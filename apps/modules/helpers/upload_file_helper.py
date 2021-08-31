@@ -1,10 +1,9 @@
 import os
 
-from apps.modules.utils.colorful import debug
-
 from amk_demo.settings.base import MEDIA_ROOT
+from apps.modules.utils.colorful import debug
 from apps.modules.utils.file_utils import is_exist_filepath
-from django.core.files.storage import default_storage, Storage
+from django.core.files.storage import default_storage
 
 
 def upload_file_to_server(upload_file, media_save_path: str) -> bool:
