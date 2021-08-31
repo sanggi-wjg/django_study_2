@@ -14,12 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.urls import path
+from django.urls import path, include
 
 from home import views as home
 from user import views as user
 from file import views as file
-from sample import views as sample
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -32,10 +31,7 @@ urlpatterns = [
 
     path('file/upload', file.FileUploadController.as_view(), name = 'FileUpload'),
 
-    path('sample', sample.SampleController.as_view(), name = 'Sample'),
-    path('sample-multi', sample.SampleMultiController.as_view(), name = 'SampleMulti'),
-
-    path('sample-insert', sample.SampleInsertExcelController.as_view(), name = 'SampleInsertExcel'),
+    path('sample/', include('sample.urls')),
 ]
 
 if settings.DEBUG:

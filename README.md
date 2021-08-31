@@ -6,7 +6,6 @@
 Python 3.8
 Django 3.2.6
 ```
-
 #### Python 패키지
 ```
 pip install django==3.2.6
@@ -23,9 +22,8 @@ pip install django-debug-toolbar
 pip install djangorestframework
 (https://www.django-rest-framework.org/)
 
-pip install colorful_print==0.0.4
+pip install markdown django-filter colorful_print==0.0.4
 ```
-
 #### jQuery 패키지
 ```
 jquery uploader
@@ -33,23 +31,20 @@ https://github.com/danielm/uploader
 ```
 
 ## Django Commands
-### Create App 
+#### Create App 
 ```shell script
 python manage.py startapp apps
 ```
-
-### Django Migrate Table
+#### Django Migrate Table
 ```shell script
 python manage.py migrate
 ```
-
-### Model migrate
+#### Model migrate
 ```shell script
 python manage.py makemigrations apps
 python manage.py sqlmigrate apps 0001
 python manage.py migrate
 ```
-
 
 ## 참고
 #### 유저 

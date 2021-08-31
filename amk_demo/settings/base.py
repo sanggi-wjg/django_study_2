@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'home',
     'sample',
     'user',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -115,6 +116,14 @@ INDEX_URL = '/'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
+
+# Rest Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions, or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # Log
 LOG_BASE_ROOT = os.path.join(BASE_DIR, "logs")
