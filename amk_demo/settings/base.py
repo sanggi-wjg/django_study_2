@@ -158,7 +158,7 @@ LOGGING = {
         },
         'server_file' : {
             'class'      : 'logging.handlers.RotatingFileHandler',
-            'level'      : 'DEBUG',
+            'level'      : 'WARNING',
             'backupCount': LOG_FILE_ROTATE_COUNT,
             'maxBytes'   : LOG_FILE_SIZE,
             'formatter'  : 'basic',
@@ -166,7 +166,7 @@ LOGGING = {
         },
         'request_file': {
             'class'      : 'logging.handlers.RotatingFileHandler',
-            'level'      : 'DEBUG',
+            'level'      : 'WARNING',
             'backupCount': LOG_FILE_ROTATE_COUNT,
             'maxBytes'   : LOG_FILE_SIZE,
             'formatter'  : 'basic',
@@ -183,19 +183,23 @@ LOGGING = {
     },
     'loggers'                 : {
         'django.server'     : {
+            'level'    : 'DEBUG',
             'handlers' : ['server_file'],
             'propagate': False,
         },
         'django.security.*' : {
+            'level'    : 'DEBUG',
             'handlers' : ['server_file'],
             'propagate': False,
         },
         'django.request'    : {
+            'level'    : 'DEBUG',
             'handlers' : ['request_file'],
             'propagate': False,
         },
         'django.db.backends': {
-            'handlers' : ['db_file'],
+            'level'    : 'DEBUG',
+            'handlers' : ['db_file', 'console'],
             'propagate': False,
         },
     },
