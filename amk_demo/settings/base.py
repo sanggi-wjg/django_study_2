@@ -132,12 +132,17 @@ X_FRAME_OPTIONS = 'DENY'
 LOG_BASE_ROOT = os.path.join(BASE_DIR, "logs")
 LOG_DATABASE_FILE = os.path.join(LOG_BASE_ROOT, "database.log")
 LOG_REQUEST_FILE = os.path.join(LOG_BASE_ROOT, "request.log")
+LOG_SERVER_FILE = os.path.join(LOG_BASE_ROOT, "server.log")
+
+LOG_FILE_ROTATE_COUNT = 50
+LOG_FILE_SIZE = 1024 * 1024 * 20  # about 20 Mb
 
 LOG_FORMAT_SIMPLE = '[%(asctime)s] %(message)s'
 LOG_FORMAT_BASIC = '[%(levelname)s] [%(asctime)s] (%(name)s) %(message)s'
 LOG_FORMAT_THREAD = '[%(levelname)s] [%(asctime)s] (%(name)s) (Id: %(thread)d, Name: %(threadName)s) %(message)s '
 
 # https://docs.djangoproject.com/en/3.2/topics/logging/
+
 LOGGING = {
     'version'                 : 1,
     'disable_existing_loggers': False,  # Do not set True.
@@ -149,34 +154,56 @@ LOGGING = {
             'format': LOG_FORMAT_BASIC
         }
     },
+    'filters'                 : {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true' : {
+            '()': 'django.utils.log.RequireDebugTrue'
+        }
+    },
     'handlers'                : {
         'console'     : {
-            'class': 'logging.StreamHandler'
+            'class'  : 'logging.StreamHandler',
+            'level'  : 'DEBUG',
+            'filters': ['require_debug_true'],
+        },
+        'server_file' : {
+            'class'      : 'logging.handlers.RotatingFileHandler',
+            'level'      : 'DEBUG',
+            'backupCount': LOG_FILE_ROTATE_COUNT,
+            'maxBytes'   : LOG_FILE_SIZE,
+            'formatter'  : 'basic',
+            'filename'   : LOG_SERVER_FILE
         },
         'request_file': {
             'class'      : 'logging.handlers.RotatingFileHandler',
-            'backupCount': 50,
-            'maxBytes'   : 1024 * 1024 * 20,  # about 20 Mb
+            'level'      : 'DEBUG',
+            'backupCount': LOG_FILE_ROTATE_COUNT,
+            'maxBytes'   : LOG_FILE_SIZE,
             'formatter'  : 'basic',
             'filename'   : LOG_REQUEST_FILE
         },
         'db_file'     : {
             'class'      : 'logging.handlers.RotatingFileHandler',
-            'backupCount': 50,
-            'maxBytes'   : 1024 * 1024 * 20,  # about 20 Mb
+            'level'      : 'DEBUG',
+            'backupCount': LOG_FILE_ROTATE_COUNT,
+            'maxBytes'   : LOG_FILE_SIZE,
             'formatter'  : 'basic',
             'filename'   : LOG_DATABASE_FILE
         },
     },
     'loggers'                 : {
+        'django.server'     : {
+            'handlers' : ['server_file'],
+            'propagate': False,
+        },
         'django.request'    : {
-            'handlers' : ['request_file', 'console'],
-            'level'    : 'DEBUG',
+            'handlers' : ['request_file'],
             'propagate': False,
         },
         'django.db.backends': {
             'handlers' : ['db_file'],
-            'level'    : 'DEBUG',
             'propagate': False,
         },
     },
