@@ -1,6 +1,6 @@
 from colorful_print import color
 
-from apps.modules.utils.common_utils import get_DEBUG
+from modules.utils.common import get_DEBUG
 
 
 def colorful_dispatcher(c: str, msg: str, *args, **kwargs):

@@ -32,22 +32,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Package
-
-    # Controller
-    'apps.home',
-    'apps.file',
-    'apps.user',
-    'apps.sample',
-
-    # Module
-    'apps.modules',
-    'apps.modules.decorators',
-    'apps.modules.exceptions',
-    'apps.modules.helpers',
-    'apps.modules.mixins',
-    'apps.modules.models',
-    'apps.modules.utils',
+    'file',
+    'home',
+    'sample',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -195,6 +183,10 @@ LOGGING = {
     },
     'loggers'                 : {
         'django.server'     : {
+            'handlers' : ['server_file'],
+            'propagate': False,
+        },
+        'django.security.*' : {
             'handlers' : ['server_file'],
             'propagate': False,
         },

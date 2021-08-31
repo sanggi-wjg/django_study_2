@@ -1,7 +1,7 @@
 import logging
 
-from amk_demo.settings.base import LOG_FORMAT_BASIC, LOG_FORMAT_THREAD, LOG_BASE_ROOT
-from apps.modules.utils.common_utils import get_DEBUG
+from amk_demo.settings.base import LOG_FORMAT_BASIC, LOG_FORMAT_THREAD
+from modules.utils.common import get_DEBUG
 
 
 class Singleton(object):
@@ -40,7 +40,7 @@ def _get_log_formatter(isThread: bool = False):
 
 
 def _get_log_file_handler(name: str, path: str = ''):
-    LOG_BASE_ROOT
+    # LOG_BASE_ROOT
 
     if path == '':
         return logging.FileHandler(name)

@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf import settings
 from django.urls import path
 
-from apps.home import views as home
-from apps.user import views as user
-from apps.file import views as file
-from apps.sample import views as sample
+from home import views as home
+from user import views as user
+from file import views as file
+from sample import views as sample
 
 urlpatterns = [
     # path('admin/', admin.site.urls),

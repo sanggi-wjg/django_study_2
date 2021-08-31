@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.views.generic.base import View
 
-from apps.modules.helpers.upload_file_helper import upload_file_to_server
-from apps.modules.mixins.auth_mixins import LoginRequired
+from file.helpers import upload_file_to_server
+from modules.mixins.auth_mixins import LoginRequired
 
 
 class FileUploadController(LoginRequired, View):

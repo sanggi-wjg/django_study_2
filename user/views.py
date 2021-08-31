@@ -14,7 +14,7 @@ class UserLoginController(View):
         if request.user.is_authenticated:
             return redirect(INDEX_URL)
         auth_form = AuthenticationForm()
-
+        raise Exception('213')
         return render(request, self.template_name, context = {
             'view_title': self.view_title,
             'auth_form' : auth_form

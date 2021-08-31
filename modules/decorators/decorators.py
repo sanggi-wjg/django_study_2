@@ -1,9 +1,9 @@
 import functools
 from typing import Callable
 
-from apps.modules.exceptions.exceptions import brief_error
-from apps.modules.utils.colorful import error
-from apps.modules.utils.logger import Logger
+from modules.exceptions import brief_error
+from modules.utils import error
+from modules.utils.logger import Logger
 
 
 def catch_error_basic(func: Callable):

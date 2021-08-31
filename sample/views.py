@@ -8,9 +8,9 @@ from django.views.generic.base import View
 from openpyxl import load_workbook
 
 from amk_demo.settings.base import MEDIA_ROOT
-from apps.modules.helpers.upload_file_helper import upload_file_to_server
-from apps.modules.mixins.auth_mixins import LoginRequired
-from apps.sample.forms import UploadFileForm
+from file.helpers import upload_file_to_server
+from modules.mixins.auth_mixins import LoginRequired
+from sample.forms import UploadFileForm
 
 
 class SampleController(LoginRequired, View):
