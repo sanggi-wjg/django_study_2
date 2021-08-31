@@ -193,17 +193,17 @@ LOGGING = {
     'loggers'                 : {
         'django.server'     : {
             'level'    : 'DEBUG',
-            'handlers' : ['server_file'],
+            'handlers' : ['server_file', 'console'],
             'propagate': False,
         },
         'django.security.*' : {
             'level'    : 'DEBUG',
-            'handlers' : ['server_file'],
+            'handlers' : ['server_file', 'console'],
             'propagate': False,
         },
         'django.request'    : {
             'level'    : 'DEBUG',
-            'handlers' : ['request_file'],
+            'handlers' : ['request_file', 'console'],
             'propagate': False,
         },
         'django.db.backends': {

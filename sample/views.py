@@ -5,11 +5,13 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from rest_framework import viewsets, permissions
+from rest_framework.generics import GenericAPIView, ListCreateAPIView
+from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
 
 from amk_demo.settings.base import MEDIA_ROOT
 from file.helpers import upload_file_to_server
-from modules.utils.colorful import debug
 from sample.forms import UploadFileForm
 from sample.models import Snippet
 from sample.serializers import SampleUserSerializer, SampleGroupSerializer, SnippetSerializer
@@ -66,6 +68,22 @@ class SampleGroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = SampleGroupSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+# class SnippetView(ListModelMixin, CreateModelMixin, GenericAPIView):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+
+# class SnippetView(ListCreateAPIView):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
 
 
 class SnippetView(View):
