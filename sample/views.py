@@ -1,15 +1,18 @@
 import os
 
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from rest_framework import viewsets, permissions
+from rest_framework.parsers import JSONParser
 
 from amk_demo.settings.base import MEDIA_ROOT
 from file.helpers import upload_file_to_server
+from modules.utils.colorful import debug
 from sample.forms import UploadFileForm
-from sample.serializers import SampleUserSerializer, SampleGroupSerializer
+from sample.models import Snippet
+from sample.serializers import SampleUserSerializer, SampleGroupSerializer, SnippetSerializer
 from sample.service.excel.sample_read_excel import ReadExcelSample
 from user.mixins import LoginRequired
 
@@ -63,3 +66,45 @@ class SampleGroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = SampleGroupSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class SnippetView(View):
+
+    def get(self, request, *args, **kwargs):
+        snippets = Snippet.objects.all()
+        serializer = SnippetSerializer(snippets, many = True)
+        return JsonResponse(serializer.data, safe = False)
+
+    def post(self, request, *args, **kwargs):
+        data = JSONParser().parse(request)
+        serializer = SnippetSerializer(data = data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status = 201)
+
+        return JsonResponse(serializer.errors, status = 400)
+
+
+class SnippetDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        snippet = get_object_or_404(Snippet.objects, id = kwargs['pk'])
+        serializer = SnippetSerializer(snippet)
+        return JsonResponse(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        snippet = get_object_or_404(Snippet.objects, id = kwargs['pk'])
+        data = JSONParser().parse(request)
+        serializer = SnippetSerializer(snippet, data = data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+
+        return JsonResponse(serializer.errors, status = 400)
+
+    def delete(self, request, *args, **kwargs):
+        snippet = get_object_or_404(Snippet.objects, id = kwargs['pk'])
+        snippet.delete()
+        return HttpResponse(status = 204)
