@@ -9,6 +9,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from amk_demo.settings.base import MEDIA_ROOT
 from file.helpers import upload_file_to_server
