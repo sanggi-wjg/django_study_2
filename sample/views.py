@@ -4,12 +4,8 @@ from django.contrib.auth.models import User, Group
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
-from rest_framework import viewsets, permissions
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from rest_framework import viewsets, permissions, mixins, generics
 from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from amk_demo.settings.base import MEDIA_ROOT
 from file.helpers import upload_file_to_server
@@ -127,3 +123,29 @@ class SnippetDetailView(View):
         snippet = get_object_or_404(Snippet.objects, id = kwargs['pk'])
         snippet.delete()
         return HttpResponse(status = 204)
+
+
+# class SnippetDetail(generics.GenericAPIView,
+#                     mixins.ListModelMixin,
+#                     mixins.RetrieveModelMixin,
+#                     mixins.UpdateModelMixin):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+#
+#     def list(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.get(request, *args, **kwargs)
+#
+#     def update(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
