@@ -21,6 +21,9 @@ class SampleController(LoginRequired, View):
     template_name = 'sample/sample_content.html'
 
     def get(self, request, *args, **kwargs):
+        from django.contrib import messages
+        messages.info(request, "Hello World")
+
         return render(request, self.template_name, context = {
             'view_title' : self.view_title,
             'upload_form': UploadFileForm()

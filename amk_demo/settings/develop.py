@@ -1,6 +1,9 @@
+from django.contrib.messages import constants
+
 from .base import *
 
 DEBUG = True
+MESSAGE_LEVEL = constants.DEBUG
 
 ALLOWED_HOSTS = [
     'localhost'
