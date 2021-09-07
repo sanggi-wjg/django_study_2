@@ -31,3 +31,77 @@ DATABASES = {
         'NAME'  : BASE_DIR / 'db.sqlite3',
     }
 }
+
+LOGGING = {
+    'version'                 : 1,
+    'disable_existing_loggers': False,  # Do not set True.
+    'formatters'              : {
+        'simple': {
+            'format': LOG_FORMAT_SIMPLE
+        },
+        'basic' : {
+            'format': LOG_FORMAT_BASIC
+        }
+    },
+    'filters'                 : {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true' : {
+            '()': 'django.utils.log.RequireDebugTrue'
+        }
+    },
+    'handlers'                : {
+        'console'     : {
+            'class'  : 'logging.StreamHandler',
+            'level'  : 'DEBUG',
+            'filters': ['require_debug_true'],
+        },
+        'server_file' : {
+            'class'      : 'logging.handlers.RotatingFileHandler',
+            'level'      : 'WARNING',
+            'backupCount': LOG_FILE_ROTATE_COUNT,
+            'maxBytes'   : LOG_FILE_SIZE,
+            'formatter'  : 'basic',
+            'filename'   : LOG_SERVER_FILE
+        },
+        'request_file': {
+            'class'      : 'logging.handlers.RotatingFileHandler',
+            'level'      : 'WARNING',
+            'backupCount': LOG_FILE_ROTATE_COUNT,
+            'maxBytes'   : LOG_FILE_SIZE,
+            'formatter'  : 'basic',
+            'filename'   : LOG_REQUEST_FILE
+        },
+        'db_file'     : {
+            'class'      : 'logging.handlers.RotatingFileHandler',
+            'level'      : 'DEBUG',
+            'backupCount': LOG_FILE_ROTATE_COUNT,
+            'maxBytes'   : LOG_FILE_SIZE,
+            'formatter'  : 'basic',
+            'filename'   : LOG_DATABASE_FILE
+        },
+    },
+    'loggers'                 : {
+        'django.server'     : {
+            'level'    : 'DEBUG',
+            'handlers' : ['server_file', 'console'],
+            'propagate': False,
+        },
+        'django.security.*' : {
+            'level'    : 'DEBUG',
+            'handlers' : ['server_file', 'console'],
+            'propagate': False,
+        },
+        'django.request'    : {
+            'level'    : 'DEBUG',
+            'handlers' : ['request_file', 'console'],
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'level'    : 'DEBUG',
+            'handlers' : ['db_file', 'console'],
+            'propagate': False,
+        },
+    },
+}
