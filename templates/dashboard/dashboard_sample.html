@@ -5,9 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-{#{% load plotly_dash %}#}
-{#{% plotly_app name="DashSample" %}#}
-<iframe src="http://localhost:8050" width="800" height="800">
+
+{% load plotly_dash %}
+<div style="width: auto">
+    {% plotly_app name="DashboardSample" %}
+</div>
 
 </iframe>
 </body>

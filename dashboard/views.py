@@ -5,8 +5,8 @@ from user.mixins import LoginRequired
 
 
 class DashBoardView(LoginRequired, View):
-    view_title = 'Dash Sample'
-    template_name = 'dash/dash_sample.html'
+    view_title = 'Dashboard Sample'
+    template_name = 'dashboard/dashboard_sample.html'
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, context = {

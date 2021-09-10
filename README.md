@@ -26,7 +26,7 @@ pip install dash
 (https://dash.plotly.com/) 
 pip install pandas
 pip install django_plotly_dash
-(https://django-plotly-dash.readthedocs.io/)
+(https://django-plotly-dash.readthedocs.io/en/latest/)
 
 pip install markdown django-filter pygments colorful_print==0.0.4
 ```
