@@ -22,6 +22,12 @@ pip install django-debug-toolbar
 pip install djangorestframework
 (https://www.django-rest-framework.org/)
 
+pip install dash
+(https://dash.plotly.com/) 
+pip install pandas
+pip install django_plotly_dash
+(https://django-plotly-dash.readthedocs.io/)
+
 pip install markdown django-filter pygments colorful_print==0.0.4
 ```
 #### jQuery 패키지

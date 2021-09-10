@@ -32,6 +32,7 @@ urlpatterns = [
     path('file/upload', file.FileUploadController.as_view(), name = 'FileUpload'),
 
     path('sample/', include('sample.urls')),
+    path('dashboard/', include('dashboard.urls')),
 ]
 
 if settings.DEBUG:
