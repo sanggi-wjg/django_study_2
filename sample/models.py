@@ -21,7 +21,7 @@ class Snippet(models.Model):
         ordering = ['created']
 
 
-class StatPartnerModel(models.Model):
+class StatPartner(models.Model):
     idx = models.BigAutoField(primary_key = True)
     logYear = models.PositiveSmallIntegerField(db_column = 'logYear')
     logMonth = models.PositiveSmallIntegerField(db_column = 'logMonth')
