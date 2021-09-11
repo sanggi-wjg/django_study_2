@@ -12,3 +12,13 @@ class DashBoardView(LoginRequired, View):
         return render(request, self.template_name, context = {
             'view_title': self.view_title,
         })
+
+
+class DashBoardStatView(LoginRequired, View):
+    view_title = 'Dashboard Sample'
+    template_name = 'dashboard/dashboard_stat.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, context = {
+            'view_title': self.view_title,
+        })
