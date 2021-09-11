@@ -23,10 +23,11 @@ pip install djangorestframework
 (https://www.django-rest-framework.org/)
 
 pip install dash
-(https://dash.plotly.com/) 
 pip install pandas
 pip install django_plotly_dash
+(https://dash.plotly.com/) 
 (https://django-plotly-dash.readthedocs.io/en/latest/)
+(https://plotly.com/python/)
 
 pip install markdown django-filter pygments colorful_print==0.0.4
 ```
