@@ -53,6 +53,11 @@ python manage.py sqlmigrate apps 0001
 python manage.py migrate
 ```
 
+## Django Test
+```
+python manage.py test sample.tests --verbosity 2
+```
+
 ## 참고
 #### 유저 
 ```
