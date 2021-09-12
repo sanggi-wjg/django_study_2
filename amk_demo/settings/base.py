@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
     'django_plotly_dash.apps.DjangoPlotlyDashConfig',
 
-    'dashboard'
+    'dashboard',
     'file',
     'home',
     'sample',

@@ -29,7 +29,7 @@ pip install django_plotly_dash
 (https://django-plotly-dash.readthedocs.io/en/latest/)
 (https://plotly.com/python/)
 
-pip install markdown django-filter pygments colorful_print==0.0.4
+pip install markdown django-filter pygments pytest-django colorful_print==0.0.4 
 ```
 #### jQuery 패키지
 ```
@@ -55,10 +55,15 @@ python manage.py migrate
 
 ## Django Test
 ```
+# Django Unit Test
 python manage.py test sample.tests --keepdb
 
-# DiscoverRunner  
+# Django DiscoverRunner  
 https://adamj.eu/tech/2020/09/05/what-happens-when-you-run-manage.py-test/
+
+# pytest
+pytest sample/test/test_models.py 
+(https://pytest-django.readthedocs.io/en/latest)
 ```
 
 ## 참고
