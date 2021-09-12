@@ -62,8 +62,14 @@ python manage.py test sample.tests --keepdb
 https://adamj.eu/tech/2020/09/05/what-happens-when-you-run-manage.py-test/
 
 # pytest
-pytest sample/test/test_models.py 
+pytest sample/test/test_models.py
+(https://docs.pytest.org/en/6.2.x/)
 (https://pytest-django.readthedocs.io/en/latest)
+```
+
+```
+# test data
+https://github.com/FinanceData/FinanceDataReader
 ```
 
 ## 참고
