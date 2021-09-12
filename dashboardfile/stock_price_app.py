@@ -32,3 +32,4 @@ app = DjangoDash('StockPriceSample')
 app.layout = html.Div(children = [
     dcc.Graph(figure = fig),
 ])
+# TODO : React 로 stock_code 변경 해서 가져 오는 것도 해보자

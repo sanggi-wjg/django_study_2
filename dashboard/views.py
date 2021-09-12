@@ -23,6 +23,7 @@ class DashBoardStatView(LoginRequired, View):
 
     def get(self, request, *args, **kwargs):
         from dashboardfile import stock_price_app
+        from dashboardfile import stock_price_scatter_app
 
         return render(request, self.template_name, context = {
             'view_title': self.view_title,
