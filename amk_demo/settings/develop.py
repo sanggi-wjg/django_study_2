@@ -4,6 +4,7 @@ from .base import *
 
 DEBUG = True
 MESSAGE_LEVEL = constants.DEBUG
+# TEST_RUNNER = 'amk_demo.test_runner.TestRunner'
 
 ALLOWED_HOSTS = [
     'localhost'

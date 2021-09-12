@@ -55,7 +55,10 @@ python manage.py migrate
 
 ## Django Test
 ```
-python manage.py test sample.tests --verbosity 2
+python manage.py test sample.tests --keepdb
+
+# DiscoverRunner  
+https://adamj.eu/tech/2020/09/05/what-happens-when-you-run-manage.py-test/
 ```
 
 ## 참고
