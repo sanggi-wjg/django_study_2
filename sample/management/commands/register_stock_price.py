@@ -9,11 +9,12 @@ class Command(BaseCommand):
     help = 'Register KOSPI Stock Price'
 
     def add_arguments(self, parser):
-        pass
+        parser.add_argument('stock_code', type = str, help = 'stock code')
 
     def handle(self, *args, **options):
-        df = fdr.DataReader('033780')
-        stock = Stocks.objects.get(stock_code = '033780')
+        stock_code = options['stock_code']
+        stock = Stocks.objects.get(stock_code = stock_code)
+        df = fdr.DataReader(stock_code)
 
         dataset = []
 

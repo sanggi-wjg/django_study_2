@@ -130,6 +130,17 @@ REST_FRAMEWORK = {
     ]
 }
 
+# Redis
+CACHES = {
+    "default": {
+        "BACKEND" : "django_redis.cache.RedisCache",
+        "LOCATION": "redis://192.168.10.204:6379",
+        "OPTIONS" : {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 # Log
 LOG_BASE_ROOT = os.path.join(BASE_DIR, "logs")
 LOG_DATABASE_FILE = os.path.join(LOG_BASE_ROOT, "database.log")

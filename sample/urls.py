@@ -3,12 +3,13 @@ from rest_framework import routers
 
 from sample.views import (
     SampleUserViewSet, SampleGroupViewSet, SampleController, SampleMultiController, SampleInsertExcelController,
-    SnippetView, SnippetDetailView, SnippetDetail, SnippetList
+    SnippetView, SnippetDetailView, SnippetDetail, SnippetList, StockPriceViewSet
 )
 
 router = routers.DefaultRouter()
 router.register('users', SampleUserViewSet)
 router.register('groups', SampleGroupViewSet)
+router.register('stock-price', StockPriceViewSet)
 
 urlpatterns = [
     path('', include(router.urls), name = 'UserSerial'),

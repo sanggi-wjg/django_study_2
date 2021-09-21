@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from sample.models import LANGUAGE_CHOICES, STYLE_CHOICES, Snippet
+from sample.models import LANGUAGE_CHOICES, STYLE_CHOICES, Snippet, StockPrice
 
 
 class SampleUserSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,6 +14,12 @@ class SampleGroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
+
+
+class StockPriceSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = StockPrice
+        fields = ['open_price', 'high_price', 'low_price', 'close_price', 'date']
 
 
 class SnippetSerializer(serializers.Serializer):

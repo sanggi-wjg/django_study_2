@@ -1,5 +1,6 @@
 import os
 
+from django.core.cache import cache
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -10,8 +11,8 @@ from rest_framework.parsers import JSONParser
 from amk_demo.settings.base import MEDIA_ROOT
 from file.helpers import upload_file_to_server
 from sample.forms import UploadFileForm
-from sample.models import Snippet
-from sample.serializers import SampleUserSerializer, SampleGroupSerializer, SnippetSerializer
+from sample.models import Snippet, StockPrice, Stocks
+from sample.serializers import SampleUserSerializer, SampleGroupSerializer, SnippetSerializer, StockPriceSerializer
 from sample.service.excel.sample_read_excel import ReadExcelSample
 from user.mixins import LoginRequired
 
@@ -21,8 +22,19 @@ class SampleController(LoginRequired, View):
     template_name = 'sample/sample_content.html'
 
     def get(self, request, *args, **kwargs):
+        # Contrib Message
         from django.contrib import messages
         messages.info(request, "Hello World")
+
+        # Redis Cache
+        fromcache = cache.get('stock_price_353')
+        if fromcache is None:
+            stock_price = StockPrice.objects.filter(stocks_id = Stocks.objects.get(id = '353'))
+            cache.set('stock_price_353', stock_price, 60 * 60)
+        else:
+            stock_price = fromcache
+
+        print(stock_price)
 
         return render(request, self.template_name, context = {
             'view_title' : self.view_title,
@@ -68,6 +80,11 @@ class SampleGroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = SampleGroupSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class StockPriceViewSet(viewsets.ModelViewSet):
+    queryset = StockPrice.objects.all()
+    serializer_class = StockPriceSerializer
 
 
 # class SnippetView(ListModelMixin, CreateModelMixin, GenericAPIView):

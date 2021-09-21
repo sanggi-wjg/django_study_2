@@ -54,7 +54,7 @@ python manage.py migrate
 ```
 
 ## Django Test
-```
+```shell script
 # Django Unit Test
 python manage.py test sample.tests --keepdb
 
@@ -67,14 +67,59 @@ pytest sample/test/test_models.py
 (https://pytest-django.readthedocs.io/en/latest)
 ```
 
-```
+```shell script
 # test data
 https://github.com/FinanceData/FinanceDataReader
 ```
 
+## Redis
+```shell script
+pip install django-redis
+
+docker pull redis:6.2.5
+docker run --name demo-redis -p 6379:6379 -d redis:6.2.5 redis-server --appendonly yes
+docker exec -it demo-redis bash
+redis-cli -p 6379
+```
+```python
+# settings.py
+CACHES = {
+    "default": {
+        "BACKEND" : "django_redis.cache.RedisCache",
+        "LOCATION": "redis://192.168.10.204:6379",
+        "OPTIONS" : {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# views.py
+from django.core.cache import cache
+
+fromcache = cache.get('stock_price_353')
+if fromcache is None:
+    stock_price = StockPrice.objects.filter(stocks_id = Stocks.objects.get(id = '353'))
+    cache.set('stock_price_353', stock_price, 60 * 60)
+else:
+    stock_price = fromcache
+```
+
+```shell script
+root@732d8cd6eb27:/data# redis-cli -p 6379
+127.0.0.1:6379> keys *
+1) ":1:stock_price_353"
+127.0.0.1:6379>
+
+# django-redis package
+https://github.com/jazzband/django-redis
+
+# Docker redis 명령어
+http://redisgate.kr/redis/education/docker_intro.php
+```
+
 ## 참고
 #### 유저 
-```
+```shell script
 https://docs.djangoproject.com/ko/3.2/topics/auth/
 https://han-py.tistory.com/145
 https://wikidocs.net/71303
